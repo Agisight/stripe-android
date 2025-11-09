@@ -1,3 +1,10 @@
+// Skip publishing on JitPack builds
+if (System.getenv("JITPACK")?.toBoolean() == true) {
+    println("🟢 Skipping deploy.gradle (JitPack mode)")
+    return
+}
+
+
 apply plugin: "signing"
 apply plugin: "maven-publish"
 
