@@ -6,3 +6,4 @@ install:
   - ./gradlew clean bundleStripeFatAar --no-configuration-cache
   - mkdir -p build/libs
   - cp build/outputs/fat-aar/stripe-android-lim.aar build/libs/stripe-android-lim.aar
+  - ls -R build
