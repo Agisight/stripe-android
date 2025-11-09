@@ -34,7 +34,7 @@ plugins {
     id 'com.emergetools.android' version '4.3.0' apply false
     id 'com.google.dagger.hilt.android' version '2.55' apply false
     id 'maven-publish'
-    id "io.gitlab.arturbosch.detekt"
+//    id "io.gitlab.arturbosch.detekt"
 }
 
 allprojects {
