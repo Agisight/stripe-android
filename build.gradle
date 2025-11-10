@@ -205,12 +205,17 @@ tasks.register("bundleStripeFatAar") {
         ant.zip(destfile: finalAar, basedir: aarStage)
         println "✅ Created fat AAR: ${finalAar.absolutePath}"
 
-        // 🔥 КОПИРУЕМ В ПАПКУ, ГДЕ JITPACK ИЩЕТ
+        // 🔥 КОПИРУЕМ В build/libs (JitPack нашёл POM здесь)
         def jitpackDir = file("$buildDir/libs")
         jitpackDir.mkdirs()
         ant.copy(file: finalAar, tofile: new File(jitpackDir, "stripe-android-heylim.aar"))
 
-        // 🔥 СОЗДАЁМ POM ФАЙЛ
+        // 🔥 КОПИРУЕМ В ~/.m2 (JitPack ожидает артефакты здесь)
+        def m2Dir = new File(System.getProperty("user.home"), ".m2/repository/com/github/Agisight/stripe-android/heylim-SNAPSHOT")
+        m2Dir.mkdirs()
+        ant.copy(file: finalAar, tofile: new File(m2Dir, "stripe-android-heylim-SNAPSHOT.aar"))
+
+        // 🔥 СОЗДАЁМ POM в обеих локациях
         def pomContent = """<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -225,6 +230,10 @@ tasks.register("bundleStripeFatAar") {
 </project>"""
 
         new File(jitpackDir, "stripe-android-heylim.pom").text = pomContent
+        new File(m2Dir, "stripe-android-heylim-SNAPSHOT.pom").text = pomContent
+
         println "✅ Created POM: ${jitpackDir}/stripe-android-heylim.pom"
+        println "✅ Created POM: ${m2Dir}/stripe-android-heylim-SNAPSHOT.pom"
+        println "✅ Copied AAR to: ${m2Dir}/stripe-android-heylim-SNAPSHOT.aar"
     }
 }
