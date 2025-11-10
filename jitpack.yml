@@ -2,16 +2,13 @@ jdk:
   - openjdk17
 
 install:
-  # Отключаем конфигурационный кеш Gradle
   - echo "org.gradle.configuration-cache=false" >> gradle.properties
-
-  # Строим fat AAR как делают авторы Stripe
   - ./gradlew clean bundleStripeFatAar --no-configuration-cache
 
-  # JitPack ищет артефакты в build/outputs/aar/, кладём туда
-  - mkdir -p build/outputs/aar
-  - if [ -f build/build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/build/outputs/fat-aar/stripe-android-lim.aar build/outputs/aar/; fi
-  - if [ -f build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/outputs/fat-aar/stripe-android-lim.aar build/outputs/aar/; fi
+  # Кладём .aar туда, где JitPack ищет артефакты (внутрь модуля)
+  - mkdir -p payments-core/build/outputs/aar
+  - if [ -f build/build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/build/outputs/fat-aar/stripe-android-lim.aar payments-core/build/outputs/aar/; fi
+  - if [ -f build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/outputs/fat-aar/stripe-android-lim.aar payments-core/build/outputs/aar/; fi
 
-  # Выводим список для проверки
-  - ls -R build/outputs/aar
+  # Проверим, что скопировалось
+  - ls -R payments-core/build/outputs/aar
