@@ -206,12 +206,12 @@ tasks.register("bundleStripeFatAar") {
         // 🔥 КОПИРУЕМ В build/libs (JitPack нашёл POM здесь)
         def jitpackDir = file("$buildDir/libs")
         jitpackDir.mkdirs()
-        ant.copy(file: finalAar, tofile: new File(jitpackDir, "stripe-android-heylim.aar"))
+        ant.copy(file: finalAar, tofile: new File(jitpackDir, "stripe-android-lim.aar"))
 
         // 🔥 КОПИРУЕМ В ~/.m2 (JitPack ожидает артефакты здесь)
-        def m2Dir = new File(System.getProperty("user.home"), ".m2/repository/com/github/Agisight/stripe-android/heylim-SNAPSHOT")
+        def m2Dir = new File(System.getProperty("user.home"), ".m2/repository/com/github/Agisight/stripe-android/lim-SNAPSHOT")
         m2Dir.mkdirs()
-        ant.copy(file: finalAar, tofile: new File(m2Dir, "stripe-android-heylim-SNAPSHOT.aar"))
+        ant.copy(file: finalAar, tofile: new File(m2Dir, "stripe-android-lim-SNAPSHOT.aar"))
 
         // 🔥 СОЗДАЁМ POM в обеих локациях
         def pomContent = """<?xml version="1.0" encoding="UTF-8"?>
@@ -221,17 +221,17 @@ tasks.register("bundleStripeFatAar") {
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.Agisight</groupId>
     <artifactId>stripe-android</artifactId>
-    <version>heylim-SNAPSHOT</version>
+    <version>lim-SNAPSHOT</version>
     <packaging>aar</packaging>
     <name>Stripe Android (LIM Build)</name>
     <description>Unified Stripe Android SDK bundle with localization</description>
 </project>"""
 
-        new File(jitpackDir, "stripe-android-heylim.pom").text = pomContent
-        new File(m2Dir, "stripe-android-heylim-SNAPSHOT.pom").text = pomContent
+        new File(jitpackDir, "stripe-android-lim.pom").text = pomContent
+        new File(m2Dir, "stripe-android-lim-SNAPSHOT.pom").text = pomContent
 
-        println "✅ Created POM: ${jitpackDir}/stripe-android-heylim.pom"
-        println "✅ Created POM: ${m2Dir}/stripe-android-heylim-SNAPSHOT.pom"
-        println "✅ Copied AAR to: ${m2Dir}/stripe-android-heylim-SNAPSHOT.aar"
+        println "✅ Created POM: ${jitpackDir}/stripe-android-lim.pom"
+        println "✅ Created POM: ${m2Dir}/stripe-android-lim-SNAPSHOT.pom"
+        println "✅ Copied AAR to: ${m2Dir}/stripe-android-lim-SNAPSHOT.aar"
     }
 }
