@@ -88,9 +88,9 @@ dokka {
 dependencies {
     dokka(project(":3ds2sdk"))
     dokka(project(":connect"))
-//    dokka(project(":financial-connections"))
-//    dokka(project(":financial-connections-core"))
-//    dokka(project(":financial-connections-lite"))
+    dokka(project(":financial-connections"))
+    dokka(project(":financial-connections-core"))
+    dokka(project(":financial-connections-lite"))
     dokka(project(":identity"))
     dokka(project(":paymentsheet"))
     dokka(project(":payments-core"))
@@ -156,6 +156,7 @@ tasks.register("bundleStripeFatAar") {
             ":payments-core:assembleRelease",
             ":payments-ui-core:assembleRelease",
             ":3ds2sdk:assembleRelease",
+            ":financial-connections:assembleRelease"
     )
 
     doLast {
@@ -173,6 +174,7 @@ tasks.register("bundleStripeFatAar") {
                 project(':payments-core').buildDir.absolutePath     + "/outputs/aar/payments-core-release.aar",
                 project(':stripe-core').buildDir.absolutePath       + "/outputs/aar/stripe-core-release.aar",
                 project(':3ds2sdk').buildDir.absolutePath           + "/outputs/aar/3ds2sdk-release.aar",
+                project(':financial-connections').buildDir.absolutePath + "/outputs/aar/financial-connections-release.aar",
         ]
 
         ant.unzip(src: moduleAars[0], dest: baseDir)
@@ -209,9 +211,9 @@ tasks.register("bundleStripeFatAar") {
         ant.copy(file: finalAar, tofile: new File(jitpackDir, "stripe-android-lim.aar"))
 
         // 🔥 КОПИРУЕМ В ~/.m2 (JitPack ожидает артефакты здесь)
-        def m2Dir = new File(System.getProperty("user.home"), ".m2/repository/com/github/Agisight/stripe-android/lim-SNAP")
+        def m2Dir = new File(System.getProperty("user.home"), ".m2/repository/com/github/Agisight/stripe-android/lim-SNAPSHOT")
         m2Dir.mkdirs()
-        ant.copy(file: finalAar, tofile: new File(m2Dir, "stripe-android-lim-SNAP.aar"))
+        ant.copy(file: finalAar, tofile: new File(m2Dir, "stripe-android-lim-SNAPSHOT.aar"))
 
         // 🔥 СОЗДАЁМ POM в обеих локациях
         def pomContent = """<?xml version="1.0" encoding="UTF-8"?>
@@ -221,17 +223,17 @@ tasks.register("bundleStripeFatAar") {
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.Agisight</groupId>
     <artifactId>stripe-android</artifactId>
-    <version>lim-SNAP</version>
+    <version>lim-SNAPSHOT</version>
     <packaging>aar</packaging>
     <name>Stripe Android (LIM Build)</name>
     <description>Unified Stripe Android SDK bundle with localization</description>
 </project>"""
 
         new File(jitpackDir, "stripe-android-lim.pom").text = pomContent
-        new File(m2Dir, "stripe-android-lim-SNAP.pom").text = pomContent
+        new File(m2Dir, "stripe-android-lim-SNAPSHOT.pom").text = pomContent
 
         println "✅ Created POM: ${jitpackDir}/stripe-android-lim.pom"
-        println "✅ Created POM: ${m2Dir}/stripe-android-lim-SNAP.pom"
-        println "✅ Copied AAR to: ${m2Dir}/stripe-android-lim-SNAP.aar"
+        println "✅ Created POM: ${m2Dir}/stripe-android-lim-SNAPSHOT.pom"
+        println "✅ Copied AAR to: ${m2Dir}/stripe-android-lim-SNAPSHOT.aar"
     }
 }
