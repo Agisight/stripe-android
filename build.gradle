@@ -209,11 +209,15 @@ tasks.register("bundleStripeFatAar") {
 
 publishing {
     publications {
-        create("release", MavenPublication) {
+        release(MavenPublication) {
             groupId = "com.github.Agisight"
             artifactId = "stripe-android"
-            version = "lim-${System.getenv("GIT_COMMIT") ?: "SNAPSHOT"}"
-            artifact(finalAar)
+            version = "heylim-${System.getenv("GIT_COMMIT") ?: "SNAPSHOT"}"
+
+            artifact(finalAar) {
+                builtBy bundleStripeFatAar
+            }
+
             pom {
                 name.set("Stripe Android (LIM Build)")
                 description.set("Unified Stripe Android SDK bundle with localization")
@@ -222,10 +226,7 @@ publishing {
     }
 }
 
-// 👇 Связываем публикацию с созданием AAR
-afterEvaluate {
-    tasks.named("publishToMavenLocal").configure {
-        dependsOn("bundleStripeFatAar")
-    }
-    tasks.findByName("publish")?.dependsOn("bundleStripeFatAar")
+// JitPack вызывает install автоматически
+tasks.register("install") {
+    dependsOn("publishToMavenLocal")
 }
