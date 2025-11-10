@@ -156,7 +156,6 @@ tasks.register("bundleStripeFatAar") {
             ":payments-core:assembleRelease",
             ":payments-ui-core:assembleRelease",
             ":3ds2sdk:assembleRelease",
-            ":financial-connections:assembleRelease"
     )
 
     doLast {
@@ -174,7 +173,6 @@ tasks.register("bundleStripeFatAar") {
                 project(':payments-core').buildDir.absolutePath     + "/outputs/aar/payments-core-release.aar",
                 project(':stripe-core').buildDir.absolutePath       + "/outputs/aar/stripe-core-release.aar",
                 project(':3ds2sdk').buildDir.absolutePath           + "/outputs/aar/3ds2sdk-release.aar",
-                project(':financial-connections').buildDir.absolutePath + "/outputs/aar/financial-connections-release.aar",
         ]
 
         ant.unzip(src: moduleAars[0], dest: baseDir)
