@@ -70,7 +70,7 @@
   <!-- Label on the dropdown to select the Przelewy24 Bank -->
   <string name="stripe_p24_bank">Przelewy24 Bank</string>
   <!-- Label of a button that initiates payment when tapped -->
-  <string name="stripe_pay_button_amount">Pay %s</string>
+  <string name="stripe_pay_button_amount">pay %s</string>
   <!-- Title for a bank account payment method -->
   <string name="stripe_payment_method_bank">Bank</string>
   <!-- Label shown in the payment type picker describing a card payment -->
@@ -80,7 +80,7 @@
   <!-- Title shown above a view allowing the customer to save a card. -->
   <string name="stripe_paymentsheet_add_new_card">Add new card</string>
   <!-- Card details entry form header title -->
-  <string name="stripe_paymentsheet_add_payment_method_card_information">Card information</string>
+  <string name="stripe_paymentsheet_add_payment_method_card_information">card information</string>
   <!-- Title shown above a view allowing the customer to save a US bank account. -->
   <string name="stripe_paymentsheet_add_us_bank_account">Add US bank account</string>
   <!-- Header text shown above a UPI ID text field -->
@@ -90,7 +90,7 @@
   <!-- Payment Method type brand name -->
   <string name="stripe_paymentsheet_payment_method_bacs_debit">Bacs Direct Debit</string>
   <!-- Title for credit card number entry field -->
-  <string name="stripe_paymentsheet_payment_method_card">Card</string>
+  <string name="stripe_paymentsheet_payment_method_card">card</string>
   <!-- Label for Konbini Payment Method -->
   <string name="stripe_paymentsheet_payment_method_konbini">Konbini</string>
   <!-- Payment method brand name -->
@@ -102,11 +102,11 @@
   <!-- Satispay mandate text -->
   <string name="stripe_satispay_mandate">By continuing, you authorize %1$s to automatically debit your Satispay Balance on a recurring basis in accordance with your purchase or subscription plan.</string>
   <!-- Next to the save payment method users will see the merchant name: "Save for future Example.inc Payments" -->
-  <string name="stripe_save_for_future_payments_with_merchant_name">Save for future %s payments</string>
+  <string name="stripe_save_for_future_payments_with_merchant_name">save for future %s payments</string>
   <!-- The label of a switch indicating whether to save the user's payment details for future payment -->
-  <string name="stripe_save_payment_details_to_merchant_name">Save payment details to %s for future purchases</string>
+  <string name="stripe_save_payment_details_to_merchant_name">save payment details to %s for future purchases</string>
   <!-- Button title to open camera to scan credit/debit card -->
-  <string name="stripe_scan_card">Scan card</string>
+  <string name="stripe_scan_card">scan card</string>
   <!-- SEPA mandate text -->
   <string name="stripe_sepa_mandate">By providing your payment information and confirming this payment, you authorise (A) %s and Stripe, our payment service provider, to send instructions to your bank to debit your account and (B) your bank to debit your account in accordance with those instructions. As part of your rights, you are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited. Your rights are explained in a statement that you can obtain from your bank. You agree to receive notifications for future debits up to 2 days before they occur.</string>
   <!-- Label of a checkbox that when checked makes a payment method as the default one. -->
