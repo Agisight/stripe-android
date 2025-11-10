@@ -204,29 +204,27 @@ tasks.register("bundleStripeFatAar") {
         ant.move(file: "${workDir}/classes.jar", todir: aarStage)
         ant.zip(destfile: finalAar, basedir: aarStage)
         println "✅ Created fat AAR: ${finalAar.absolutePath}"
+
+        // 🔥 КОПИРУЕМ В ПАПКУ, ГДЕ JITPACK ИЩЕТ
+        def jitpackDir = file("$buildDir/libs")
+        jitpackDir.mkdirs()
+        ant.copy(file: finalAar, tofile: new File(jitpackDir, "stripe-android-heylim.aar"))
+
+        // 🔥 СОЗДАЁМ POM ФАЙЛ
+        def pomContent = """<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.Agisight</groupId>
+    <artifactId>stripe-android</artifactId>
+    <version>heylim-SNAPSHOT</version>
+    <packaging>aar</packaging>
+    <name>Stripe Android (LIM Build)</name>
+    <description>Unified Stripe Android SDK bundle with localization</description>
+</project>"""
+
+        new File(jitpackDir, "stripe-android-heylim.pom").text = pomContent
+        println "✅ Created POM: ${jitpackDir}/stripe-android-heylim.pom"
     }
-}
-
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = "com.github.Agisight"
-            artifactId = "stripe-android"
-            version = "heylim-${System.getenv("GIT_COMMIT") ?: "SNAPSHOT"}"
-
-            artifact(finalAar) {
-                builtBy bundleStripeFatAar
-            }
-
-            pom {
-                name.set("Stripe Android (LIM Build)")
-                description.set("Unified Stripe Android SDK bundle with localization")
-            }
-        }
-    }
-}
-
-// JitPack вызывает install автоматически
-tasks.register("install") {
-    dependsOn("publishToMavenLocal")
 }
