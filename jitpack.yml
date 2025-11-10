@@ -4,7 +4,7 @@ jdk:
 install:
   - echo "org.gradle.configuration-cache=false" >> gradle.properties
   - ./gradlew clean bundleStripeFatAar --no-configuration-cache
-  - mkdir -p ./libs
-  - if [ -f build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/outputs/fat-aar/stripe-android-lim.aar ./libs/; fi
-  - if [ -f build/build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/build/outputs/fat-aar/stripe-android-lim.aar ./libs/; fi
-  - ls -R ./libs
+  - mkdir -p ./build/libs
+  - if [ -f build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/outputs/fat-aar/stripe-android-lim.aar ./build/libs/; fi
+  - if [ -f build/build/outputs/fat-aar/stripe-android-lim.aar ]; then cp build/build/outputs/fat-aar/stripe-android-lim.aar ./build/libs/; fi
+  - ls -R ./build/libs
